@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>爆餡夾心貝果製作課｜三明治自己來</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF5EC;
+      --warm: #FFF8F0;
+      --sesame: #C4956A;
+      --sesame-d: #9A6A3E;
+      --sesame-l: #E8C9A0;
+      --char: #1E1408;
+      --bark: #4A2E10;
+      --smoke: #6B5040;
+      --mist: #8C7A6A;
+      --berry: #C4547A;
+      --sage: #5C8050;
+      --sky: #4A6E9A;
+    }
+
+```
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--cream);
+  color: var(--char);
+  overflow-x: hidden;
+}
+
+/* ─── STICKY NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(30,20,8,0.92);
+  backdrop-filter: blur(12px);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(196,149,106,0.15);
+  transition: all 0.3s;
+}
+.nav-brand {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 13px;
+  color: var(--sesame-l);
+  letter-spacing: 0.05em;
+}
+.nav-cta {
+  background: var(--sesame);
+  color: var(--char);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 22px;
+  border-radius: 30px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: background 0.2s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--sesame-d); transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background: var(--char);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 30%, rgba(196,149,106,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 80% 70%, rgba(196,84,122,0.06) 0%, transparent 60%);
+}
+.hero-grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
+/* Decorative rings */
+.hero-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(196,149,106,0.1);
+}
+.r1 { width: 700px; height: 700px; top: -200px; right: -200px; }
+.r2 { width: 500px; height: 500px; bottom: -150px; left: -150px; border-color: rgba(196,149,106,0.06); }
+.r3 { width: 300px; height: 300px; top: 15%; left: 5%; border-color: rgba(196,149,106,0.08); }
+
+.hero-inner { position: relative; max-width: 760px; }
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--sesame);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(40px, 8vw, 88px);
+  font-weight: 900;
+  color: #FFF8EE;
+  line-height: 1.08;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.35s forwards;
+}
+.hero-title-sub {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(26px, 4.5vw, 48px);
+  font-weight: 700;
+  color: var(--sesame);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.45s forwards;
+}
+.hero-desc {
+  font-size: clamp(13px, 2vw, 16px);
+  color: rgba(232,201,160,0.75);
+  line-height: 2;
+  max-width: 580px;
+  margin: 0 auto 40px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.6s forwards;
+}
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.75s forwards;
+}
+.hbadge {
+  background: rgba(196,149,106,0.12);
+  border: 1px solid rgba(196,149,106,0.25);
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 12px;
+  color: var(--sesame-l);
+  letter-spacing: 0.03em;
+}
+.hero-btn {
+  display: inline-block;
+  background: var(--sesame);
+  color: var(--char);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 18px 56px;
+  border-radius: 50px;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  box-shadow: 0 8px 32px rgba(196,149,106,0.35);
+  transition: all 0.25s;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.9s forwards;
+}
+.hero-btn:hover { background: var(--sesame-d); transform: translateY(-3px); box-shadow: 0 14px 40px rgba(196,149,106,0.45); }
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s 1.4s forwards;
+}
+.hero-scroll-hint span { font-size: 9px; letter-spacing: 0.25em; color: rgba(196,149,106,0.4); }
+.scroll-bar { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--sesame), transparent); animation: pulse 2s infinite; }
+
+/* ─── QUOTE STRIP ─── */
+.quote-strip {
+  background: var(--sesame);
+  padding: 28px 24px;
+  text-align: center;
+}
+.quote-strip p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(14px, 2.2vw, 20px);
+  color: var(--char);
+  line-height: 1.9;
+  max-width: 700px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+/* ─── GENERIC SECTION ─── */
+.sec {
+  padding: 80px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.sec-label {
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--sesame);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
+.sec-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 700;
+  color: var(--char);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.sec-sub {
+  font-size: 14px;
+  color: var(--mist);
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+.sec-rule {
+  width: 40px; height: 2px;
+  background: var(--sesame);
+  margin-bottom: 40px;
+}
+
+/* ─── FLAVOR CARDS ─── */
+.flavor-grid { display: grid; gap: 14px; }
+.flavor-card {
+  border-radius: 16px;
+  padding: 24px 28px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.flavor-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(30,20,8,0.12); }
+.fc1 { background: linear-gradient(130deg,#FDE8C0,#FDF0D4); }
+.fc2 { background: linear-gradient(130deg,#F9DDE8,#FAE8F2); }
+.fc3 { background: linear-gradient(130deg,#D8EED0,#E4F5D8); }
+.fc4 { background: linear-gradient(130deg,#CCD8EE,#D8E6F4); }
+.fc5 { background: linear-gradient(130deg,#EAD8C0,#F4E8D4); border: 2px dashed rgba(196,149,106,0.5); }
+
+.fc-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 42px;
+  font-weight: 900;
+  opacity: 0.12;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--char);
+  width: 56px;
+}
+.fc-body { flex: 1; }
+.fc-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.tag-sw { background: rgba(196,84,122,0.12); color: var(--berry); }
+.tag-sa { background: rgba(92,128,80,0.12); color: var(--sage); }
+.tag-bo { background: rgba(196,149,106,0.18); color: var(--sesame-d); }
+.fc-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(16px, 2.5vw, 20px);
+  font-weight: 700;
+  color: var(--char);
+  margin-bottom: 12px;
+}
+.fc-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.ftag {
+  background: rgba(30,20,8,0.07);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  color: var(--bark);
+}
+
+/* ─── WHAT YOU LEARN ─── */
+.learn-bg { background: var(--warm); }
+.learn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+.lcard {
+  background: white;
+  border-radius: 14px;
+  padding: 28px 24px;
+  border: 1px solid rgba(196,149,106,0.18);
+  transition: border-color 0.25s, transform 0.25s;
+}
+.lcard:hover { border-color: var(--sesame); transform: translateY(-3px); }
+.lcard-icon { font-size: 30px; margin-bottom: 14px; }
+.lcard h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--char);
+  margin-bottom: 8px;
+}
+.lcard p { font-size: 13px; color: var(--smoke); line-height: 1.85; }
+
+/* ─── CURRICULUM ─── */
+.cur-bg { background: var(--char); }
+.cur-bg .sec-label { color: var(--sesame); }
+.cur-bg .sec-title { color: #FFF8EE; }
+.cur-bg .sec-sub { color: rgba(232,201,160,0.55); }
+.cur-bg .sec-rule { background: var(--sesame); }
+
+.cur-list { display: grid; gap: 12px; }
+.cur-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(196,149,106,0.12);
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: background 0.25s;
+}
+.cur-item:hover { background: rgba(196,149,106,0.07); }
+.cur-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--sesame);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 40px;
+  padding-top: 2px;
+}
+.cur-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFF8EE;
+  margin-bottom: 10px;
+}
+.cur-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.cchip {
+  background: rgba(196,149,106,0.13);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  color: var(--sesame-l);
+}
+
+/* ─── WHO ─── */
+.who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media(max-width:600px){ .who-grid { grid-template-columns: 1fr; } }
+.wcard { border-radius: 14px; padding: 28px 26px; }
+.wyes { background: #EBF5E6; border: 1px solid rgba(92,128,80,0.25); }
+.wno  { background: #FAF0EE; border: 1px solid rgba(192,96,80,0.18); }
+.wcard h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.wyes h3 { color: var(--sage); }
+.wno h3  { color: #A05040; }
+.wcard li {
+  list-style: none;
+  font-size: 13px;
+  color: var(--smoke);
+  line-height: 1.9;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(30,20,8,0.06);
+}
+.wcard li:last-child { border-bottom: none; }
+.wcard li::before { content: '▸  '; color: var(--sesame); }
+.who-note {
+  grid-column: 1 / -1;
+  background: linear-gradient(120deg, #FDE8C0, #FDF0D4);
+  border-left: 4px solid var(--sesame);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  font-size: 14px;
+  color: var(--char);
+  line-height: 1.9;
+}
+.who-note b { color: var(--bark); font-size: 15px; }
+
+/* ─── INSTRUCTOR ─── */
+.inst-bg { background: linear-gradient(160deg, #F5EDE0, var(--cream)); }
+.inst-card {
+  background: white;
+  border-radius: 20px;
+  padding: 48px 44px;
+  box-shadow: 0 12px 48px rgba(30,20,8,0.08);
+  border: 1px solid rgba(196,149,106,0.15);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.inst-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--char);
+  margin-bottom: 6px;
+}
+.inst-role {
+  font-size: 13px;
+  color: var(--sesame);
+  letter-spacing: 0.08em;
+  margin-bottom: 28px;
+}
+.inst-body { font-size: 15px; color: var(--smoke); line-height: 2.1; }
+.inst-body p { margin-bottom: 16px; }
+.inst-body p:last-child { margin-bottom: 0; }
+.inst-motto {
+  margin-top: 28px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--sesame-d);
+  padding-top: 24px;
+  border-top: 1px solid rgba(196,149,106,0.2);
+}
+
+/* ─── INFO TABLE ─── */
+.info-bg { background: var(--char); }
+.info-bg .sec-label { color: var(--sesame); }
+.info-bg .sec-title { color: #FFF8EE; }
+.info-bg .sec-rule { background: var(--sesame); }
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.info-table tr { border-bottom: 1px solid rgba(196,149,106,0.1); transition: background 0.2s; }
+.info-table tr:hover { background: rgba(196,149,106,0.05); }
+.info-table th {
+  text-align: left;
+  padding: 18px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sesame);
+  letter-spacing: 0.1em;
+  width: 130px;
+}
+.info-table td {
+  padding: 18px 12px;
+  font-size: 15px;
+  color: #FFF8EE;
+  font-weight: 300;
+}
+.price-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--sesame);
+}
+
+/* ─── CLOSING ─── */
+.close-sec {
+  background: linear-gradient(160deg, #140C04, var(--char), #140C04);
+  padding: 120px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.close-sec::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(196,149,106,0.12) 0%, transparent 65%);
+}
+.close-inner { position: relative; max-width: 640px; margin: 0 auto; }
+.close-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(16px, 2.8vw, 24px);
+  color: rgba(232,201,160,0.85);
+  line-height: 2.2;
+  margin-bottom: 52px;
+}
+.close-text em { font-style: normal; color: var(--sesame); font-weight: 700; }
+.close-btn {
+  display: inline-block;
+  background: var(--sesame);
+  color: var(--char);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 20px 64px;
+  border-radius: 50px;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  box-shadow: 0 10px 36px rgba(196,149,106,0.4);
+  transition: all 0.25s;
+}
+.close-btn:hover { background: var(--sesame-d); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(196,149,106,0.5); }
+.close-note { margin-top: 18px; font-size: 12px; color: rgba(196,149,106,0.4); letter-spacing: 0.15em; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #0A0604;
+  padding: 24px;
+  text-align: center;
+}
+footer p { font-size: 11px; color: rgba(196,149,106,0.3); letter-spacing: 0.18em; }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes pulse {
+  0%,100% { opacity: 0.3; } 50% { opacity: 1; }
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px){
+  .flavor-card { flex-direction: column; gap: 10px; }
+  .fc-num { font-size: 28px; width: auto; }
+  .inst-card { padding: 28px 20px; }
+  nav { padding: 12px 16px; }
+}
+```
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <span class="nav-brand">三明治自己來 × 手作貝果課</span>
+  <a href="#register" class="nav-cta">立即報名 →</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+
+<section class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-ring r1"></div>
+  <div class="hero-ring r2"></div>
+  <div class="hero-ring r3"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">三明治自己來 × 實體工作坊</div>
+    <h1 class="hero-title">爆餡夾心</h1>
+    <div class="hero-title-sub">貝果製作課</div>
+    <p class="hero-desc">
+      8 種關鍵內餡 一次學會｜4 款明星口味 完整拆解<br>
+      在家也能做出萬能抹餡，切開的那一刻，讓人「哇」一聲的貝果
+    </p>
+    <div class="hero-badges">
+      <span class="hbadge">🕐 6 小時完整課程</span>
+      <span class="hbadge">👥 6–10 人小班制</span>
+      <span class="hbadge">📋 完整配方帶回家</span>
+      <span class="hbadge">🥯 成品全部帶走</span>
+    </div>
+    <a href="#register" class="hero-btn">我要報名這堂課</a>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-bar"></div>
+    <span>往下看課程內容</span>
+  </div>
+</section>
+
+<!-- QUOTE -->
+
+<div class="quote-strip">
+  <p>
+    一顆讓人記住的貝果，除了韌Q的貝體，<strong>就是層次百變的內餡。</strong><br>
+    這堂課想教你的不是三種口味，而是一套讓你<strong>可以一直創作新口味的內餡系統。</strong>
+  </p>
+</div>
+
+<!-- ═══ FLAVORS ═══ -->
+
+<div style="background:var(--cream);">
+  <div class="sec reveal">
+    <span class="sec-label">實作口味</span>
+    <h2 class="sec-title">4 款你會做、你會帶走的口味</h2>
+    <p class="sec-sub">每一款都是三姨研究多次迭代的配方，課堂上完整示範，成品當天帶走。</p>
+    <div class="sec-rule"></div>
+    <div class="flavor-grid">
+
+```
+  <div class="flavor-card fc1 reveal">
+    <div class="fc-num">01</div>
+    <div class="fc-body">
+      <span class="fc-tag tag-sw">甜口味</span>
+      <div class="fc-name">🥭 熱情盛夏・百香芒果</div>
+      <div class="fc-tags">
+        <span class="ftag">百香乳酪</span><span class="ftag">芒果乳酪</span>
+        <span class="ftag">芒果果肉</span><span class="ftag">百香果醬</span>
+        <span class="ftag">芒果醬</span><span class="ftag">泰茶貝體</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-card fc2 reveal">
+    <div class="fc-num">02</div>
+    <div class="fc-body">
+      <span class="fc-tag tag-sw">甜口味</span>
+      <div class="fc-name">🍓 焙茶乃酥・乳酪草莓</div>
+      <div class="fc-tags">
+        <span class="ftag">焙茶乃酥</span><span class="ftag">草莓乳酪</span>
+        <span class="ftag">草莓果肉</span><span class="ftag">原味貝體</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-card fc3 reveal">
+    <div class="fc-num">03</div>
+    <div class="fc-body">
+      <span class="fc-tag tag-sw">甜口味</span>
+      <div class="fc-name">🍇 可可莓果・優格綠葡萄</div>
+      <div class="fc-tags">
+        <span class="ftag">可可乳酪</span><span class="ftag">莓果優格乳酪</span>
+        <span class="ftag">綠葡萄</span><span class="ftag">茶香貝體</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-card fc4 reveal">
+    <div class="fc-num">04</div>
+    <div class="fc-body">
+      <span class="fc-tag tag-sa">鹹口味 Plus</span>
+      <div class="fc-name">🐟 煙燻鮭魚・檸檬塔塔</div>
+      <div class="fc-tags">
+        <span class="ftag">檸檬塔塔乳酪</span><span class="ftag">煙燻鮭魚</span>
+        <span class="ftag">起司片</span><span class="ftag">墨西哥辣椒</span>
+        <span class="ftag">義大利香料貝體</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flavor-card fc5 reveal">
+    <div class="fc-num">⭐</div>
+    <div class="fc-body">
+      <span class="fc-tag tag-bo">加碼好料</span>
+      <div class="fc-name">🍗 春川炒雞餡（鹹餡製作技術）</div>
+      <div class="fc-tags">
+        <span class="ftag">韓式鹹餡</span><span class="ftag">完整配方帶走</span>
+        <span class="ftag">一學就會的關鍵內餡</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ═══ WHAT YOU LEARN ═══ -->
+
+<div class="learn-bg">
+  <div class="sec reveal">
+    <span class="sec-label">這堂課你會學到</span>
+    <h2 class="sec-title">從內餡到組裝，全部給你</h2>
+    <div class="sec-rule"></div>
+    <div class="learn-grid">
+      <div class="lcard reveal">
+        <div class="lcard-icon">🫙</div>
+        <h3>4 款醬料基底</h3>
+        <p>百香果醬、莓果醬、檸檬塔塔醬、甘納許，醬料是基礎內餡的靈魂，先學會這四個。</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lcard-icon">🧀</div>
+        <h3>8 種關鍵內餡抹醬</h3>
+        <p>甜鹹兩路，從奶油乳酪到乃酥沙感，學會製作邏輯就能各種自己來變化。</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lcard-icon">🥯</div>
+        <h3>2 款貝體實作＋4 款配方</h3>
+        <p>泰茶、原味、茶香、義大利香料，課上示範兩款，配方四款全部帶走。</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lcard-icon">🤲</div>
+        <h3>整形技巧手把手</h3>
+        <p>如何解決不粗細不一的接口、螺旋貝體做法，手把手貼身帶你過一遍。</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lcard-icon">✂️</div>
+        <h3>爆餡夾心組裝與切法</h3>
+        <p>讓截面漂亮的關鍵不只是內餡多，是怎麼夾、怎麼切——這裡都不私藏。</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lcard-icon">💬</div>
+        <h3>三姨的創作哲學分享</h3>
+        <p>口味靈感怎麼來？怎麼找到自己的方向？給剛開始做東西的人的真心建議。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CURRICULUM ═══ -->
+
+<div class="cur-bg">
+  <div class="sec reveal">
+    <span class="sec-label">課程綱要</span>
+    <h2 class="sec-title">完整六小時，我們上什麼</h2>
+    <p class="sec-sub" style="color:rgba(232,201,160,0.5);">從第一個醬料到最後 Q&A，每一段都有東西帶走。</p>
+    <div class="sec-rule"></div>
+    <div class="cur-list">
+
+```
+  <div class="cur-item reveal">
+    <div class="cur-num">①</div>
+    <div>
+      <div class="cur-title">4 款醬料製作</div>
+      <div class="cur-chips">
+        <span class="cchip">百香果醬</span><span class="cchip">綜合莓果醬</span>
+        <span class="cchip">檸檬塔塔醬</span><span class="cchip">甘納許</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cur-item reveal">
+    <div class="cur-num">②</div>
+    <div>
+      <div class="cur-title">8 種內餡抹醬（適合家用）</div>
+      <div class="cur-chips">
+        <span class="cchip">百香芒果乳酪</span><span class="cchip">草莓白乳酪</span>
+        <span class="cchip">苦感可可乳酪</span><span class="cchip">綜合莓果優格乳酪</span>
+        <span class="cchip">檸檬塔塔抹醬</span><span class="cchip">焙茶沙感乃酥</span>
+        <span class="cchip">漬果乾小技巧</span><span class="cchip">春川辣炒雞餡</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cur-item reveal">
+    <div class="cur-num">③</div>
+    <div>
+      <div class="cur-title">2 款貝體實作 ＋ 4 款完整配方</div>
+      <div class="cur-chips">
+        <span class="cchip">泰茶貝體（示範）</span><span class="cchip">原味貝體（示範）</span>
+        <span class="cchip">茶香貝體（配方）</span><span class="cchip">義大利香料貝體（配方）</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cur-item reveal">
+    <div class="cur-num">④</div>
+    <div>
+      <div class="cur-title">貼身整形技巧</div>
+      <div class="cur-chips">
+        <span class="cchip">接口圓滾滾不粗細不一</span>
+        <span class="cchip">螺旋貝體製作</span>
+        <span class="cchip">多種整形方式拆解</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cur-item reveal">
+    <div class="cur-num">⑤</div>
+    <div>
+      <div class="cur-title">課程最後小分享 ＋ Q&A</div>
+      <div class="cur-chips">
+        <span class="cchip">三姨怎麼開始做貝果</span>
+        <span class="cchip">口味靈感怎麼來</span>
+        <span class="cchip">怎麼找到自己的方向</span>
+        <span class="cchip">給剛開始做東西的人的建議</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ═══ WHO IS THIS FOR ═══ -->
+
+<div style="background:var(--cream);">
+  <div class="sec reveal">
+    <span class="sec-label">適合對象</span>
+    <h2 class="sec-title">這堂課適合你嗎？</h2>
+    <div class="sec-rule"></div>
+    <div class="who-grid">
+      <div class="wcard wyes reveal">
+        <h3>✅ 你很適合來，如果你是</h3>
+        <ul>
+          <li>對烘焙有點興趣但不知未來方向</li>
+          <li>喜歡手作烘焙（0 基礎完全沒問題）</li>
+          <li>想學各種餡料配方自由變化的廚藝愛好者</li>
+          <li>在猶豫要不要開始接單或少量販售的你</li>
+          <li>本來就在做甜點、麵包、貝果，想增加品項</li>
+        </ul>
+      </div>
+      <div class="wcard wno reveal">
+        <h3>❌ 可能不太適合，如果你</h3>
+        <ul>
+          <li>嫌麻煩、嫌太貴</li>
+          <li>只想花錢買人家做好的</li>
+          <li>被拉來單純陪伴？</li>
+        </ul>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(30,20,8,0.08);font-size:13px;color:var(--smoke);line-height:1.9;">
+          But 你想自己的貝果自己來——做出自己想吃的口味、塞滿自己的冷凍庫吧！<br>
+          <strong style="color:var(--bark);">那這堂課，應該會適合你。</strong>
+        </div>
+      </div>
+      <div class="who-note reveal">
+        如果你想做出切開會讓人哇一聲的貝果、做出可以變成招牌的產品、學會內餡怎麼配才有層次、做出冷凍回烤一樣好吃的夾心貝果、不只照配方而是自己設計口味……<br>
+        <b>那這堂課，應該會適合你。</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ INSTRUCTOR ═══ -->
+
+<div class="inst-bg">
+  <div class="sec reveal">
+    <span class="sec-label">關於講師</span>
+    <h2 class="sec-title">為什麼跟三明治自己來學</h2>
+    <div class="sec-rule"></div>
+    <div class="inst-card reveal">
+      <div class="inst-name">三姨</div>
+      <div class="inst-role">三明治自己來 / 創造貝果最有意思的可能發明家 💡</div>
+      <div class="inst-body">
+        <p>一開始做貝果，其實只是被別人敲碗。從做出像麵包般柔軟的貝體（初期被嫌棄到爆），在豬仔反饋中不斷迭代，到現在擁有超過 600 種口味配方、上千種自家內餡，真正讓人記住的，除了基本煙韌Q嚼的貝體，還有令人驚豔的內餡、層次、口味發想。</p>
+        <p>自己來是種魅力。如果能從生活當中做出令自己喜愛的貝果，豐富生活中的餐盤，體驗這些成果帶給你的禮物——為自己的生命創造更多的可能，從嫌隙中獲取溫暖與成就感，那我想，也就是三明治自己來想帶給大家的。</p>
+        <p>我只是把平常在用的方式、經驗，整理成一堂課教給你。</p>
+      </div>
+      <div class="inst-motto">👉 三姨配方，沒在私藏。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ INFO ═══ -->
+
+<div class="info-bg" id="register">
+  <div class="sec reveal">
+    <span class="sec-label">課程資訊</span>
+    <h2 class="sec-title" style="color:#FFF8EE;">報名前你想知道的</h2>
+    <div class="sec-rule"></div>
+    <table class="info-table">
+      <tr>
+        <th>課程費用</th>
+        <td><span class="price-num">$5,200</span> <span style="font-size:13px;color:rgba(232,201,160,0.5);">/ 人</span></td>
+      </tr>
+      <tr><th>課程時間</th><td>約 6 小時</td></tr>
+      <tr><th>課程形式</th><td>實體課</td></tr>
+      <tr><th>課程人數</th><td>6–10 人小班制</td></tr>
+      <tr><th>配方提供</th><td>✓ 提供完整配方講義，全部帶回家</td></tr>
+      <tr><th>成品帶走</th><td>✓ 當日製作成品全部帶走</td></tr>
+      <tr><th>適合程度</th><td>新手～想販售者皆可（需會自製貝果麵團）</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ CLOSING ═══ -->
+
+<div class="close-sec">
+  <div class="close-inner reveal">
+    <div class="close-text">
+      我一直覺得，<em>自己來是種魅力</em>。<br>
+      一顆讓人記住的貝果，除了創作者給予的 50%，<br>
+      另外是由你們的 50% 去完整整個食用的感受。<br><br>
+      這堂課我把平常在用的內餡比例、風味組合、<br>
+      還有怎麼做出爆餡又不膩的結構，整理成一堂課。<br><br>
+      如果你也想做出一顆，<br>
+      切開的時候會讓人「哇」一聲的貝果——<br>
+      <em>我們課堂見。</em>
+    </div>
+    <a href="#register" class="close-btn">立即報名這堂課 →</a>
+    <p class="close-note">名額有限，每班 6–10 人</p>
+  </div>
+</div>
+
+<footer>
+  <p>三明治自己來 × 爆餡夾心貝果製作課｜配方不私藏</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
